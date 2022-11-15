@@ -1,0 +1,32 @@
+{
+  "name": "@envidat/ckan-models",
+  "version": "0.0.2",
+  "description": "JS models for CKAN-based database.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "db:introspect": "dotenv -- prisma introspect",
+    "db:generate": "dotenv -- prisma generate",
+    "postinstall": "tsc && cp src/index.d.ts dist/index.d.ts && npm exec prisma@4.6.1 generate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlabext.wsl.ch/EnviDat/ckan-models-js.git"
+  },
+  "keywords": [
+    "envidat",
+    "ckan",
+    "rdm"
+  ],
+  "author": "Sam Woodcock",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^4.6.1"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^6.0.0",
+    "prisma": "^4.6.1",
+    "typescript": "^4.8.4"
+  }
+}
