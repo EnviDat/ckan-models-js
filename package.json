@@ -29,9 +29,5 @@
     "dotenv-cli": "^6.0.0",
     "prisma": "^4.6.1",
     "typescript": "^4.8.4"
-  },
-  "bundledDependencies": [
-    "@prisma/client",
-    ".prisma"
-  ]
+  }
 }
