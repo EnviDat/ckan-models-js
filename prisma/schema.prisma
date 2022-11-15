@@ -188,11 +188,10 @@ model member_revision {
   @@index([revision_timestamp, expired_timestamp, table_id, group_id], map: "idx_package_group_period_package_group")
 }
 
-/// This model has been renamed to 'Renamedpackage' during introspection, because the original name 'package' is reserved.
-model Renamedpackage {
+model ckan_package {
   id                                                                                      String                          @id
   name                                                                                    String                          @unique @db.VarChar(100)
-  title                                                                                   String?
+  title                                                                         String?
   version                                                                                 String?                         @db.VarChar(100)
   url                                                                                     String?
   notes                                                                                   String?
@@ -240,7 +239,7 @@ model package_extra {
   value      String?
   state      String?
   package_id String?
-  package    Renamedpackage? @relation("packageTopackage_extra", fields: [package_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  package    ckan_package? @relation("packageTopackage_extra", fields: [package_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@index([id, package_id], map: "idx_extra_id_pkg_id")
   @@index([package_id], map: "idx_extra_pkg_id")
@@ -274,7 +273,7 @@ model package_member {
   user_id    String
   capacity   String
   modified   DateTime       @db.Timestamp(6)
-  package    Renamedpackage @relation("packageTopackage_member", fields: [package_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  package    ckan_package @relation("packageTopackage_member", fields: [package_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   user       user           @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@id([package_id, user_id])
@@ -287,8 +286,8 @@ model package_relationship {
   type                                                     String?
   comment                                                  String?
   state                                                    String?
-  package_packageTopackage_relationship_object_package_id  Renamedpackage?                 @relation("packageTopackage_relationship_object_package_id", fields: [object_package_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  package_packageTopackage_relationship_subject_package_id Renamedpackage?                 @relation("packageTopackage_relationship_subject_package_id", fields: [subject_package_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  package_packageTopackage_relationship_object_package_id  ckan_package?                 @relation("packageTopackage_relationship_object_package_id", fields: [object_package_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  package_packageTopackage_relationship_subject_package_id ckan_package?                 @relation("packageTopackage_relationship_subject_package_id", fields: [subject_package_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   package_relationship_revision                            package_relationship_revision[]
 }
 
@@ -306,9 +305,9 @@ model package_relationship_revision {
   expired_timestamp                                                 DateTime?             @db.Timestamp(6)
   current                                                           Boolean?
   package_relationship                                              package_relationship? @relation(fields: [continuity_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  package_packageTopackage_relationship_revision_object_package_id  Renamedpackage?       @relation("packageTopackage_relationship_revision_object_package_id", fields: [object_package_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  package_packageTopackage_relationship_revision_object_package_id  ckan_package?       @relation("packageTopackage_relationship_revision_object_package_id", fields: [object_package_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   revision                                                          revision              @relation(fields: [revision_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  package_packageTopackage_relationship_revision_subject_package_id Renamedpackage?       @relation("packageTopackage_relationship_revision_subject_package_id", fields: [subject_package_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  package_packageTopackage_relationship_revision_subject_package_id ckan_package?       @relation("packageTopackage_relationship_revision_subject_package_id", fields: [subject_package_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@id([id, revision_id])
   @@index([current], map: "idx_package_relationship_current")
@@ -396,7 +395,7 @@ model rating {
   rating          Float?
   created         DateTime?       @db.Timestamp(6)
   package_id      String?
-  package         Renamedpackage? @relation("packageTorating", fields: [package_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  package         ckan_package? @relation("packageTorating", fields: [package_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   user            user?           @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([id], map: "idx_rating_id")
@@ -636,7 +635,7 @@ model user_following_dataset {
   object_id   String
   datetime    DateTime       @db.Timestamp(6)
   user        user           @relation(fields: [follower_id], references: [id], onDelete: Cascade)
-  package     Renamedpackage @relation("packageTouser_following_dataset", fields: [object_id], references: [id], onDelete: Cascade)
+  package     ckan_package @relation("packageTouser_following_dataset", fields: [object_id], references: [id], onDelete: Cascade)
 
   @@id([follower_id, object_id])
 }
