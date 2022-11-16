@@ -1,6 +1,6 @@
 {
   "name": "@envidat/ckan-models",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "JS models for CKAN-based database.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
