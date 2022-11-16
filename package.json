@@ -7,9 +7,9 @@
   "type": "module",
   "scripts": {
     "db:introspect": "dotenv -- prisma introspect",
-    "db:generate": "npm exec prisma@4.6.1 generate",
-    "build": "npm exec tsc",
-    "postinstall": "npm run db:generate && npm run build && npm exec cross-os copy-types"
+    "db:generate": "dotenv -- prisma generate",
+    "build": "tsc",
+    "postinstall": "npm exec prisma@4.6.1 generate && npm exec tsc && npm exec cross-os copy-types"
   },
   "cross-os": {
     "copy-types": {
