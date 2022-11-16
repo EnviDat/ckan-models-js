@@ -27,11 +27,11 @@
   "author": "Sam Woodcock",
   "license": "MIT",
   "dependencies": {
-    "@prisma/client": "^4.6.1"
+    "@prisma/client": "^4.6.1",
+    "cross-os": "^1.5.0"
   },
   "devDependencies": {
     "@types/node": "^18.11.9",
-    "cross-os": "^1.5.0",
     "dotenv-cli": "^6.0.0",
     "prisma": "^4.6.1",
     "typescript": "^4.8.4"
