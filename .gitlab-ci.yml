@@ -9,4 +9,5 @@ npm-publish:
   script:
     - echo "Publishing to NPM."
     - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-    - npm publish --access public
+    - npm run prepare
+    - npm run release
