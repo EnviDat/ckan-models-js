@@ -8,7 +8,9 @@
   "scripts": {
     "db:introspect": "dotenv -- prisma introspect",
     "db:generate": "dotenv -- prisma generate",
-    "postinstall": "npm exec prisma generate && tsc && cp src/index.d.ts dist/index.d.ts"
+    "copy-linux": "cp src/index.d.ts dist/index.d.ts",
+    "copy-windows": "copy src/index.d.ts dist/index.d.ts",
+    "postinstall": "npm exec prisma generate && tsc && npm run copy-linux || npm run copy-windows"
   },
   "repository": {
     "type": "git",
